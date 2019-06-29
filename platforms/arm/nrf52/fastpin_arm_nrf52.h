@@ -72,17 +72,24 @@
 */
 
 // manually define two structures, to avoid fighting with preprocessor macros
-struct __generated_struct_NRF_P0 {
-    FASTLED_NRF52_INLINE_ATTRIBUTE constexpr static NRF_GPIO_Type * r() {
-        return NRF_P0;
-    }
-};
-struct __generated_struct_NRF_P1 {
-    FASTLED_NRF52_INLINE_ATTRIBUTE constexpr static NRF_GPIO_Type * r() {
-        return NRF_P1;
-    }
+struct __generated_struct_NRF_P0
+{
+  FASTLED_NRF52_INLINE_ATTRIBUTE static NRF_GPIO_Type *r()
+  {
+    return NRF_P0;
+  }
 };
 
+// nRF52810 & nRF52832 parts only have a single port, thus NRF_P1 will not be defined
+#if defined(NRF_P1)
+struct __generated_struct_NRF_P1
+{
+  FASTLED_NRF52_INLINE_ATTRIBUTE static NRF_GPIO_Type *r()
+  {
+    return NRF_P1;
+  }
+};
+#endif
 
 // The actual class template can then use a typename, for what is essentially a constexpr NRF_GPIO_Type*
 template <uint32_t _MASK, typename _PORT, uint8_t _PORT_NUMBER, uint8_t _PIN_NUMBER> class _ARMPIN  {
