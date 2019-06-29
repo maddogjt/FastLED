@@ -675,7 +675,9 @@
 
 // Generic nRF52832
 // See https://github.com/sandeepmistry/arduino-nRF5/blob/master/boards.txt
-#if defined(ARDUINO_GENERIC) && (  defined(NRF52832_XXAA) || defined(NRF52832_XXAB)  )
+#if (defined(ARDUINO_GENERIC) || defined(ARDUINO_AMULET)) && (\
+    defined(NRF52832_XXAA) || defined(NRF52832_XXAB)\
+    )
     #if defined(__FASTPIN_ARM_NRF52_VARIANT_FOUND)
         #error "Cannot define more than one board at a time"
     #else
